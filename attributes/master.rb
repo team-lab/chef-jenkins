@@ -141,6 +141,14 @@ default['jenkins']['master'].tap do |master|
   master['port'] = 8080
 
   #
+  # The ajp13 port which the Jenkins process will listen on.
+  #
+  master['ajp_port'] = case node['platform_family']
+                             when 'debian' then -1
+                             else 8009
+                             end
+
+  #
   # The top-level endpoint for the Jenkins master. By default, this is a
   # "compiled" attribute from +jenkins.master.host+ and +jenkins.master.port+,
   # but you will need to change this attribute if you choose to serve Jenkins
